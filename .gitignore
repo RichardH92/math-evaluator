@@ -26,3 +26,13 @@
 *.exe
 *.out
 *.app
+
+*.vcxproj
+*.vcxproj.filters
+
+*.idb
+*.pdb
+*.tlog
+*.lastbuildstate
+*.vcxproj.user
+*.log
