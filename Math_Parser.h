@@ -11,11 +11,14 @@
 #include "Constant.h"
 #include "Variable.h"
 #include "Function.h"
+#include <list>
 
 class Math_Parser
 {
 private:
 	Lexical_Analyzer *lexxer;
+	list<Variable *> *var_list;
+	Expression *root_ast;
 
 	Add_Expr * Parse_Add_Expr();
 	Sub_Expr * Parse_Sub_Expr();

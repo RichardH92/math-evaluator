@@ -24,11 +24,17 @@ Math_Parser::Math_Parser(char *p_expression) {
 	assert(p_expression != NULL);
 	lexxer = new Lexical_Analyzer(p_expression);
 	assert(lexxer != NULL);
+	var_list = new list<Variable *>();
+	assert(var_list != NULL);
 }
 
 Math_Parser::~Math_Parser() {
 	assert(lexxer != NULL);
 	delete lexxer;
+	delete var_list;
+
+	//if (root_ast != NULL)
+	//	delete root_ast;
 }
 
 Expression * Math_Parser::Parse_Expression() {
@@ -44,6 +50,7 @@ Expression * Math_Parser::Parse_Expression() {
 		}
 	}
 
+	root_ast = ret;
 	return ret;
 }
 
@@ -309,6 +316,7 @@ Variable * Math_Parser::Parse_Variable() {
 	if (t.isVariable()) {
 		lexxer->Consume_Token();
 		ret = new Variable(t.toString());
+		var_list->push_back(ret);
 		assert(ret != NULL);
 	}
 
