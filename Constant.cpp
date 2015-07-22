@@ -12,5 +12,11 @@ double Constant::getValue() {
 }
 
 string Constant::toString() {
+	double intpart;
+	if (modf(value, &intpart) == 0.0) {
+		int temp = (int)value;
+		return to_string(temp);
+	}
+
 	return to_string(value);
 }

@@ -6,7 +6,6 @@ using namespace std;
 class Term {
 
 public:
-	virtual ~Term();
-	virtual string toString();
+	virtual string toString() = 0;
 };
 

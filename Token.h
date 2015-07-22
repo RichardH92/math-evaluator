@@ -13,16 +13,18 @@
 #define TAN "tan"
 #define EXP "^"
 #define LN "ln"
+#define END "END"
+#define NONE "NONE"
 
 using namespace std;
 
 class Token
 {
-private:
+public:
 	bool isVar;
 	bool isC;
 	string t_str;
-public:
+
 	bool isVariable();
 	bool isConstant();
 	string toString();

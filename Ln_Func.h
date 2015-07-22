@@ -6,5 +6,6 @@ class Ln_Func :
 public:
 	Ln_Func();
 	~Ln_Func();
+	string toString();
 };
 

@@ -6,5 +6,6 @@ class Exp_Func :
 public:
 	Exp_Func();
 	~Exp_Func();
+	string toString();
 };
 

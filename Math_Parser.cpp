@@ -17,6 +17,8 @@
 #include "Ln_Func.h"
 #include "Compound_Expression.h"
 #include <assert.h>
+#include "Tan_Func.h"
+#include <cstdlib>
 
 Math_Parser::Math_Parser(char *p_expression) {
 	assert(p_expression != NULL);
@@ -32,8 +34,8 @@ Math_Parser::~Math_Parser() {
 Expression * Math_Parser::Parse_Expression() {
 	Expression *ret = NULL;
 
-	if ((ret = Parse_Paren_Expr()) || (ret = Parse_Add_Expr()) || (ret = Parse_Sub_Expr())
-		|| (ret = Parse_Mult_Expr()) || (ret = Parse_Div_Expr()) || (ret = Parse_Term_Expr())) {
+	if (((ret = Parse_Paren_Expr()) != NULL) || ((ret = Parse_Add_Expr()) != NULL) || ((ret = Parse_Sub_Expr()) != NULL)
+		|| ((ret = Parse_Mult_Expr()) != NULL) || ((ret = Parse_Div_Expr()) != NULL) || ((ret = Parse_Term_Expr()) != NULL)) {
 
 		Expression *RHS = Parse_Expression();
 		if (RHS) {
@@ -182,6 +184,8 @@ Function * Math_Parser::Parse_Sin_Function() {
 
 		if (lexxer->Peek_Token() != RPAREN)
 			throw new Parse_Exception("Expected right paren.");
+
+		lexxer->Consume_Token();
 	}
 
 	return ret;
@@ -205,6 +209,33 @@ Function * Math_Parser::Parse_Cos_Function() {
 
 		if (lexxer->Peek_Token() != RPAREN)
 			throw new Parse_Exception("Expected right paren.");
+
+		lexxer->Consume_Token();
+	}
+
+	return ret;
+}
+
+Function * Math_Parser::Parse_Tan_Function() {
+	Function *ret = NULL;
+
+	if (lexxer->Peek_Token() == TAN) {
+		lexxer->Consume_Token();
+
+		if (lexxer->Peek_Token() != LPAREN)
+			throw new Parse_Exception("Expected left paren.");
+
+		lexxer->Consume_Token();
+		ret = new Tan_Func();
+		assert(ret != NULL);
+
+		if (!(ret->expr = Parse_Expression()))
+			throw new Parse_Exception("Expected expression.");
+
+		if (lexxer->Peek_Token() != RPAREN)
+			throw new Parse_Exception("Expected right paren.");
+
+		lexxer->Consume_Token();
 	}
 
 	return ret;
